@@ -78,6 +78,12 @@ running on localhost.
     +-----------------------------------+----------------+
 
 
+TODO
+----
+
+ * Integrate with grinder analyzer - http://track.sourceforge.net/analyzer.html
+ * Fix runs vs samples issue
+
 License
 -------
 
