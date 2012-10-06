@@ -230,10 +230,10 @@ if __name__ == '__main__':
     start = time.time()
     while g.total_samples() < args.runs:
         if i % 10 == 0:
-            print 'timer\ttests\tTPS\terrors\tmean ms\tstddev\tsize KB\tKBps'
+            print 'timer\tworkers\ttests\tTPS\terrors\tmean ms\tstddev\tsize KB\tKBps'
         i += 1
         d = g.recording_data()['totals']
-        print '%0.0f\t%d\t%0.1f\t%d\t%0.1f\t%0.1f\t%0.1f\t%0.1f' % (time.time() - start, d[0], float(d[4]), d[1], float(d[2]), float(d[3]), float(d[6])/1024, float(d[7])/1024)
+        print '%0.0f\t%d\t%d\t%0.1f\t%d\t%0.1f\t%0.1f\t%0.1f\t%0.1f' % (time.time() - start, len(g.workers_status()), d[0], float(d[4]), d[1], float(d[2]), float(d[3]), float(d[6])/1024, float(d[7])/1024)
         time.sleep(1)
 
     g.recording_stop()
