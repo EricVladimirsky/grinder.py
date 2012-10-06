@@ -5,15 +5,23 @@ from java.util import Random
 
 from net.grinder.script import Test
 from net.grinder.plugin.http import HTTPRequest
+from net.grinder.script.Grinder import grinder
+
+
+seed = grinder.getProperties()['grinder.seed']
+if seed:
+    random = Random(int(seed))
+else:
+    random = Random()
 
 
 test1 = Test(1, "Localhost")
 request1 = test1.wrap(HTTPRequest())
-random = Random()
+
 
 class TestRunner:
     def __call__(self):
-        i = abs(random.nextInt()) % 999
-        url = 'http://localhost?%d' % i
+        i = random.nextInt(100)
+        url = 'http://localhost?%s' % i
         request1.GET(url)
 

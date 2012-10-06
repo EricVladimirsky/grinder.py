@@ -164,7 +164,7 @@ class Grinder(object):
         totals = self.recording_data()['totals']
         return totals[0] + totals[1]
 
-    def start(self, runs=None, threads=None, processes=None):
+    def start(self, runs=None, threads=None, processes=None, seed=None):
         properties = {}
         if runs:
             properties['grinder.runs'] = runs
@@ -172,7 +172,8 @@ class Grinder(object):
             properties['grinder.threads'] = threads
         if processes:
             properties['grinder.processes'] = processes
-
+        if seed:
+            properties['grinder.seed'] = seed
         self.workers_start(properties)
 
 
@@ -184,6 +185,8 @@ if __name__ == '__main__':
                    help='number of runs of test')
     parser.add_argument('--threads', type=int, nargs='?', default=1,
                    help='number of threads per agent')
+    parser.add_argument('--seed', type=int, nargs='?',
+                   help='seed sent to tests as grinder.seed property')
     parser.add_argument('--processes', type=int, nargs='?', default=1,
                    help='number of processes per agent')
     args = parser.parse_args()
@@ -218,7 +221,7 @@ if __name__ == '__main__':
 
     # START WORK
     g.recording_start()
-    g.start(args.runs, args.threads, args.processes)
+    g.start(args.runs, args.threads, args.processes, args.seed)
 
     print "\t".join(['workers', 'tests'])
     # FIXME(ja): THIS IS WRONG in the case where a run outputs multiple samples
