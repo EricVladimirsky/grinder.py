@@ -226,8 +226,14 @@ if __name__ == '__main__':
     print "\t".join(['workers', 'tests'])
     # FIXME(ja): THIS IS WRONG in the case where a run outputs multiple samples
     # eg, has multiple tests
+    i = 0
+    start = time.time()
     while g.total_samples() < args.runs:
-        print "%s\t%s" % (len(g.workers_status()), g.total_samples())
+        if i % 10 == 0:
+            print 'timer\ttests\tTPS\terrors\tmean ms\tstddev\tsize KB\tKBps'
+        i += 1
+        d = g.recording_data()['totals']
+        print '%0.0f\t%d\t%0.1f\t%d\t%0.1f\t%0.1f\t%0.1f\t%0.1f' % (time.time() - start, d[0], float(d[4]), d[1], float(d[2]), float(d[3]), float(d[6])/1024, float(d[7])/1024)
         time.sleep(1)
 
     g.recording_stop()
