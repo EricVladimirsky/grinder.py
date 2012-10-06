@@ -1,0 +1,2 @@
+* wait for workers to all stop before starting
+* fix issue with distribution breaking at the start
